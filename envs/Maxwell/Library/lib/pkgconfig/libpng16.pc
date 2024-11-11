@@ -1,0 +1,12 @@
+prefix=F:/Electromagnetism/envs/Maxwell/Library
+exec_prefix=F:/Electromagnetism/envs/Maxwell/Library
+libdir=F:/Electromagnetism/envs/Maxwell/Library/lib
+includedir=F:/Electromagnetism/envs/Maxwell/Library/include/libpng16
+
+Name: libpng
+Description: Loads and saves PNG files
+Version: 1.6.39
+Requires.private: zlib
+Libs: -L${libdir} -lpng16
+Libs.private: -lz
+Cflags: -I${includedir}

@@ -1,0 +1,13 @@
+prefix=F:/Electromagnetism/envs/Maxwell/Library
+exec_prefix=F:/Electromagnetism/envs/Maxwell/Library
+libdir=F:/Electromagnetism/envs/Maxwell/Library/lib
+sharedlibdir=F:/Electromagnetism/envs/Maxwell/Library/lib
+includedir=F:/Electromagnetism/envs/Maxwell/Library/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}
