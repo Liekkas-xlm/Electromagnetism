@@ -2,6 +2,10 @@ import numpy as np
 
 
 class LaplaceFEM:
+    """
+    一维边值问题数值解通用有限元程序
+    """
+
     def __init__(self, M, alpha, beta, f, l):
         """读入M,然后读入相关参数
 
