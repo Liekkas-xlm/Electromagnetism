@@ -16,4 +16,9 @@ print(a + b)
 d = np.arange(0, 10, 1)
 
 e = a * np.sqrt(a * c - (np.sin(d.reshape(-1, 1)) ** 2))
-print(e)
+print(e.shape[0])
+
+a0 = np.array([[1, 2, 3, 4, 5], [1, 2, 3, 4, 5]])
+print(a.shape)
+print(a0.shape)
+print(b[-3])
