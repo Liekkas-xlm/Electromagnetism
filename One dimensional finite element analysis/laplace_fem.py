@@ -165,19 +165,30 @@ class LaplaceFEM:
         Returns:
             坐标对应场点的值
         """
-        x_e = np.zeros(self.M + 1)
-        for i in range(self.M):
-            x_e[i + 1] = np.sum(self.l[0:i])
-        x_colum = x.reshape(-1, 1)
-
-        N_e1 = (
-            (x_e[1:] - x_colum) / self.l * (x_colum <= x_e[1:]) * (x_colum > x_e[:-1])
-        )
-        N_e2 = (
-            (x_e[:-1] - x_colum) / self.l * (x_colum <= x_e[1:]) * (x_colum > x_e[:-1])
-        )
-
-        # φ是一个列向量
-        # fai = N_e1.dot(self.fai_e[0:-1]) + N_e2.dot(self.fai_e[1:])
-        fai = self.fai_e  # fai.reshape(1, -1)
+        fai = np.zeros_like(x, dtype=complex)
+        x_e = np.zeros((self.M + 1, 1))
+        for i in range(self.M + 1):
+            x_e[i][0] = np.sum(self.l[0:i])
+        l_e = self.l.reshape(-1, 1)
+        N_e1 = np.zeros_like(x_e)
+        N_e2 = np.zeros_like(x_e)
+        fai_array = self.fai_e.reshape(1, -1)
+        for i in range(x.shape[0]):
+            # N_e1是一个列向量
+            if x[i] < x_e.max():
+                N_e1[:-1, :] = (
+                    (x_e[1:, :] - x[i])
+                    / l_e
+                    * (x[i] < x_e[1:, :])
+                    * (x[i] >= x_e[:-1, :])
+                )
+                N_e2[1:, :] = (
+                    (x_e[1:, :] - x[i])
+                    / l_e
+                    * (x[i] < x_e[1:, :])
+                    * (x[i] >= x_e[:-1, :])
+                )
+            fai[i] = np.dot(fai_array, N_e1) + np.dot(fai_array, N_e2)
+        else:
+            fai[i] = self.fai_e[-1]
         return fai
